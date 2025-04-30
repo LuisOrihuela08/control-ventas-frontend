@@ -1,0 +1,74 @@
+<div class="body">
+    <div class="productos-titulo">
+        <h1>Bienvenido al panel de Productos</h1>
+    </div>
+    <div class="content">
+        <div class="cabecera">
+            <div class="acciones">
+                <div class="inputs">
+                    <label for="">Marca:</label>
+                    <input type="search" placeholder="Ejm: Adidas" [(ngModel)]="marcaBuscada"
+                    (input)="buscarProductoPorMarca()">
+                </div>
+                <div class="inputs">
+                    <label for="">Nombre:</label>
+                    <input type="search" placeholder="Ejm: Satire" [(ngModel)]="nombreProductoBuscado"
+                        (input)="buscarProductoPorNombre()">
+                </div>
+                <button (click)="descargarProductosExcel()"><i class="fa-solid fa-file-excel"></i> Generar Excel</button>
+                <button (click)="descargarProductosPDF()"><i class="fa-solid fa-file-pdf"></i> Generar PDF</button>
+                <button><i class="fa-solid fa-file-import"></i> Importar Excel</button>
+            </div>
+            <div class="agregar">
+                <button><i class="fa-solid fa-plus"></i> Agregar Producto</button>
+            </div>
+
+        </div>
+        <div class="tabla-content">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Marca</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let producto of productos ">
+                        <td>{{producto.id}}</td>
+                        <td>{{producto.nombreProducto}}</td>
+                        <td>{{producto.marca}}</td>
+                        <td>{{producto.cantidad}}</td>
+                        <td>{{producto.precio_unitario}}</td>
+                        <td class="button-acciones">
+                            <button class="trash">
+                                <i id="trash" class="fa-solid fa-trash"></i>
+                            </button>
+                            <button class="edit">
+                                <i id="pencil" class="fa-solid fa-pencil"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Mensaje cuando no hay resultados para la busqueda de marca-->
+        <p *ngIf="productos.length === 0 && marcaBuscada.trim() !== ''">No se encontraron resultados
+            para la marca: <strong>{{marcaBuscada}}</strong> </p>
+        <!-- Mensaje cuando no hay resultados para la busqueda de marca-->
+        <p *ngIf="productos.length === 0 && nombreProductoBuscado.trim() !== ''">No se encontraron resultados
+            para el nombre: <strong>{{nombreProductoBuscado}}</strong> </p>
+        <!-- Controles de paginación -->
+        <div class="paginacion">
+            <button (click)="prevPage()" [disabled]="currentPage === 0"><i class="fa-solid fa-chevron-left"></i>
+                Anterior</button>
+            <span>Página {{ currentPage + 1 }} de {{ totalPages }}</span>
+            <button (click)="nextPage()" [disabled]="currentPage >= totalPages - 1">Siguiente <i
+                    class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </div>
+</div>
