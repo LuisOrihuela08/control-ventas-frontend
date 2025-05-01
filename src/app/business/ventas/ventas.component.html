@@ -14,7 +14,7 @@
                     <input type="date" name="fechaFin" id="fechaFin" [(ngModel)]="fechaFin">
                     <button (click)="buscarVentasPorFechas()">🔍</button>
                 </div>              
-                <button><i class="fa-solid fa-file-excel"></i> Generar Excel</button>
+                <button (click)="mostrarModalReporteVentasMetodoPago()"><i class="fa-solid fa-wallet"></i> Reporte Método Pago</button>
                 <button ><i class="fa-solid fa-file-pdf"></i> Generar PDF</button>
                 <button (click)="limpiarFiltros()"><i class="fa-solid fa-broom"></i> Limpiar filtros</button>
             </div>
@@ -43,10 +43,10 @@
                         <span *ngFor="let prod of venta.productos_vendidos; let last = last">
                             {{ prod.nombreProducto }}<span *ngIf="!last">, </span>
                           </span>
-                        <td>{{venta.monto_total}}</td>
+                        <td>S/. {{venta.monto_total}}</td>
                         <td>{{venta.metodo_pago}}</td>
-                        <td>{{venta.dinero_cliente}}</td>
-                        <td>{{venta.vuelto}}</td>
+                        <td>S/. {{venta.dinero_cliente}}</td>
+                        <td>S/. {{venta.vuelto}}</td>
                         <td>{{venta.fechaCompra | date:'yyyy-MM-dd HH:mm'}}</td><!--Para formatear la fecha-->
                         <td class="button-acciones">
                             <button class="trash">
@@ -84,4 +84,8 @@
 </div>
 
 <!--Seccion Modal-->
+<div *ngIf="isModalReporteVentasMetodoPago == true">
+    <app-ventas-reporte-metodo-pago></app-ventas-reporte-metodo-pago>
+
+</div>
 

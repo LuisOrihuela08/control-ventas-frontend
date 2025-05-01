@@ -10,4 +10,7 @@ export class ModalService {
   //Esto es para productos
   $modalAgregarProducto = new EventEmitter<any>();
   $modalEditarProducto = new EventEmitter<any>();
+
+  //Esto es para ventas
+  $modalReporteVentasMetodoPago = new EventEmitter<any>();
 }

@@ -31,4 +31,9 @@ export class VentaService {
                                    .set('fechaFin', fechaFin);    
     return this.http.get('http://localhost:8080/api/venta/buscar-por-fecha', { params });  
   }
+
+  //Método para generar el reporte de ventas por metodo de pago
+  createReportVentasByMetodoPago(): Observable<any>{
+    return this.http.get('http://localhost:8080/api/venta/total-ventas/metodo-pago');
+  }
 }

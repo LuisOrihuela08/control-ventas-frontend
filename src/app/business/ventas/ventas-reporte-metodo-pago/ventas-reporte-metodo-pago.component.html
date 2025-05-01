@@ -1,0 +1,32 @@
+<div class="contenedor">
+    <div class="modal-content">
+        <div class="modal-content-header">
+            <div class="titulo-modal">
+                <h1>Reporte de Método de Pago</h1>
+            </div>
+            <div class="modal-boton">
+                <a >
+                    <button (click)="cerrarModalReporteVentasMetodoPago()"><i class="fa-solid fa-circle-xmark"></i></button>
+                </a>
+            </div>
+        </div>
+        <div class="tabla-content">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Método de Pago</th>
+                        <th>Cantidad de Ventas</th>
+                        <th>Total Ventas</th>                      
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of reporte">
+                        <td>{{item.metodoPago}}</td>
+                        <td>{{item.cantidadVentas}}</td>
+                        <td>S/. {{item.totalVentas}}</td>                      
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>  
+</div>

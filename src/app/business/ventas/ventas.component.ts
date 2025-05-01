@@ -3,11 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { Venta } from '../../shared/models/Venta';
 import { VentaService } from '../../shared/services/venta.service';
 import { FormsModule } from '@angular/forms';
+import { ModalService } from '../../shared/services/modal.service';
+import { VentasReporteMetodoPagoComponent } from './ventas-reporte-metodo-pago/ventas-reporte-metodo-pago.component';
 
 @Component({
   selector: 'app-ventas',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, VentasReporteMetodoPagoComponent],
   templateUrl: './ventas.component.html',
   styleUrl: './ventas.component.css'
 })
@@ -20,15 +22,26 @@ export class VentasComponent implements OnInit{
   fechaInicio: string = ''; //Esto me va a permitir hacer la busqueda de inventario entre fechas
   fechaFin: string = ''; //Esto me va a permitir hacer la busqueda de inventario entre fechas
 
+  //Esto es para los modales
+  isModalReporteVentasMetodoPago: boolean = false;
   //Esto es para la paginacion:
   currentPage: number = 0;//Numero de pagina
   pageSize: number = 14; // Número de elementos por página
   totalPages: number = 1; // Se actualizará según la respuesta del backend
 
-  constructor(private ventaService: VentaService){}
+  constructor(private ventaService: VentaService,
+              private modalService: ModalService
+             ){}
 
   ngOnInit(): void {
     this.listarVentasPaginadas();
+    this.modalService.$modalReporteVentasMetodoPago.subscribe((valor) => {this.isModalReporteVentasMetodoPago = valor})
+  }
+
+  //Esto es para abrir el modal de reporte de ventas por metodo  de pago
+  mostrarModalReporteVentasMetodoPago(){
+    this.modalService.$modalReporteVentasMetodoPago.emit(true);
+    console.log('Modal de reporte de ventas por metodo de pago abierto');
   }
 
   //Método para listar las ventas paginadas
