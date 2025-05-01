@@ -39,4 +39,14 @@ export class ProductoService {
   downloadPDF(){
     return this.http.get('http://localhost:8080/api/producto/inventario-pdf', { responseType: 'blob' });
   }
+
+  //Método para importar el inventario de productos desde un archivo excel
+  importExcel(file: File): Observable<any>{
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post('http://localhost:8080/api/producto/importar-excel', formData, {
+      reportProgress: true,//esto es para mostrar el progreso de la carga del archivo
+      observe: 'events'//esto es para observar el progreso de la carga del archivo
+    });
+  }
 }

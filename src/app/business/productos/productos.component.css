@@ -63,6 +63,9 @@
     gap: 5px;
     align-items: center;
 }
+.content .cabecera .acciones .input-file{
+    width: 30%;
+}
 /*Area de la Tabla*/
 .content .tabla-content{
     display: flex;

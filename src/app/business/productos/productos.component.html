@@ -8,16 +8,24 @@
                 <div class="inputs">
                     <label for="">Marca:</label>
                     <input type="search" placeholder="Ejm: Adidas" [(ngModel)]="marcaBuscada"
-                    (input)="buscarProductoPorMarca()">
+                        (input)="buscarProductoPorMarca()">
                 </div>
                 <div class="inputs">
                     <label for="">Nombre:</label>
                     <input type="search" placeholder="Ejm: Satire" [(ngModel)]="nombreProductoBuscado"
                         (input)="buscarProductoPorNombre()">
                 </div>
-                <button (click)="descargarProductosExcel()"><i class="fa-solid fa-file-excel"></i> Generar Excel</button>
+                <button (click)="descargarProductosExcel()"><i class="fa-solid fa-file-excel"></i> Generar
+                    Excel</button>
                 <button (click)="descargarProductosPDF()"><i class="fa-solid fa-file-pdf"></i> Generar PDF</button>
-                <button><i class="fa-solid fa-file-import"></i> Importar Excel</button>
+                <!--Esto es para importar excel - El input está oculto-->
+                <input type="file" #fileInput style="display: none" (change)="onFileChange($event)"
+                    accept=".xlsx, .xls" />
+                <button (click)="triggerFileInput()"><i class="fa-solid fa-file-import"></i> Importar Excel</button>
+                <!-- Barra de progreso opcional -->
+                <div *ngIf="progresoImportExcel > 0 && progresoImportExcel < 100">
+                    <p>Importando... {{ progresoImportExcel }}%</p>
+                </div>
             </div>
             <div class="agregar">
                 <button><i class="fa-solid fa-plus"></i> Agregar Producto</button>
