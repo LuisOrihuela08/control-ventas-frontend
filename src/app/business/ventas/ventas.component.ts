@@ -16,8 +16,9 @@ export class VentasComponent implements OnInit{
   ventas: Venta[] = [];
 
   //Esto es para la busqueda de ventas
-  nombreProductoBuscado: string = ''; // Variable para almacenar el nombre buscado
-
+  nombreProductoBuscado: string = ''; // Variable para almacenar el nombre buscado 
+  fechaInicio: string = ''; //Esto me va a permitir hacer la busqueda de inventario entre fechas
+  fechaFin: string = ''; //Esto me va a permitir hacer la busqueda de inventario entre fechas
 
   //Esto es para la paginacion:
   currentPage: number = 0;//Numero de pagina
@@ -82,6 +83,41 @@ export class VentasComponent implements OnInit{
         this.totalPages = 0; // Reiniciar el total de páginas
       }
     )
+  }
+
+  //Método para buscar ventas por intervalos de fechas
+  buscarVentasPorFechas(): void {
+
+    if (!this.fechaInicio || !this.fechaFin) {
+      this.listarVentasPaginadas();
+      return;
+    }
+
+    this.ventaService.findVentaByFechasBetween(this.fechaInicio, this.fechaFin, this.currentPage, this.pageSize).subscribe(
+      (data: any) => {
+        this.ventas = data.content;
+        this.totalPages = data.totalPages;
+        console.log('Ventas encontradas por fechas: ', this.ventas);
+      },
+      (error) => {
+        console.error('Error al buscar ventas por fechas: ', error);
+        this.ventas = []; // Limpiar la lista de ventas en caso de error
+        this.totalPages = 0; // Reiniciar el total de páginas
+      }
+    )
+  }
+
+  //Método para limpiar los filtros de búsqueda
+  limpiarFiltros(): void{
+    this.fechaInicio = ''; // Reiniciar el campo de fecha de inicio
+    this.fechaFin = ''; // Reiniciar el campo de fecha de fin
+    this.nombreProductoBuscado = ''; // Reiniciar el campo de nombre del producto
+
+    //Reiniciamos la paginacion
+    this.currentPage = 0; // Reiniciar la página actual a la primera  
+    this.pageSize = 14; // Reiniciar el tamaño de página a 14 elementos
+
+    this.listarVentasPaginadas(); // Volver a listar las ventas paginadas
   }
 
 }

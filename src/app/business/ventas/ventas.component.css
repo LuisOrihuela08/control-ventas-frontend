@@ -63,6 +63,12 @@
     gap: 5px;
     align-items: center;
 }
+.content .cabecera .acciones .fecha-group{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
 .content .cabecera .acciones .input-file{
     width: 30%;
 }

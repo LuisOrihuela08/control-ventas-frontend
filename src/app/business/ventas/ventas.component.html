@@ -9,16 +9,14 @@
                     <label for="">Producto:</label>
                     <input (input)="buscarVentaPorNombreProducto()" [(ngModel)]="nombreProductoBuscado" type="search" placeholder="Ejm: Adidas">
                 </div>
-                <div class="inputs">
-                    <label for="">Nombre:</label>
-                    <input type="search" placeholder="Ejm: Satire">
-                </div>
-                <button><i class="fa-solid fa-file-excel"></i> Generar
-                    Excel</button>
+                <div class="fecha-group">
+                    <input type="date" name="fechaInicio" id="fechaInicio" [(ngModel)]="fechaInicio">
+                    <input type="date" name="fechaFin" id="fechaFin" [(ngModel)]="fechaFin">
+                    <button (click)="buscarVentasPorFechas()">🔍</button>
+                </div>              
+                <button><i class="fa-solid fa-file-excel"></i> Generar Excel</button>
                 <button ><i class="fa-solid fa-file-pdf"></i> Generar PDF</button>
-                <!--Esto es para importar excel - El input está oculto-->
-                <input type="file" #fileInput style="display: none"/>
-                <button><i class="fa-solid fa-file-import"></i> Importar Excel</button>
+                <button (click)="limpiarFiltros()"><i class="fa-solid fa-broom"></i> Limpiar filtros</button>
             </div>
             <div class="agregar">
                 <button><i class="fa-solid fa-plus"></i> Agregar Venta</button>
@@ -66,6 +64,9 @@
         <!-- Mensaje cuando no hay resultados para la busqueda de marca-->
         <p *ngIf="ventas.length === 0 && nombreProductoBuscado.trim() !== ''">No se encontraron resultados
             para la marca: <strong>{{nombreProductoBuscado}}</strong> </p>
+        <!-- Mensaje cuando no hay resultados para la busqueda entre fechas-->
+        <p class="p-not-content" *ngIf="ventas.length === 0 && fechaInicio && fechaFin">No se encontraron resultados
+        entre las fechas {{fechaInicio}} y {{fechaFin}}</p>
         <!-- Mensaje cuando no hay resultados para la busqueda de marca
         <p *ngIf="productos.length === 0 && nombreProductoBuscado.trim() !== ''">No se encontraron resultados
             para el nombre: <strong></strong> </p>
