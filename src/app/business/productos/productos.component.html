@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="agregar">
-                <button><i class="fa-solid fa-plus"></i> Agregar Producto</button>
+                <button (click)="mostrarModalAgregarProducto()"><i class="fa-solid fa-plus"></i> Agregar Producto</button>
             </div>
 
         </div>
@@ -79,4 +79,9 @@
                     class="fa-solid fa-chevron-right"></i></button>
         </div>
     </div>
+</div>
+
+<!--Seccion Modal-->
+<div *ngIf="isModalAgregarProductoVisible == true">
+    <app-productos-add-modal></app-productos-add-modal>
 </div>

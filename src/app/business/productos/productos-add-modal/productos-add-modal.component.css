@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.contenedor {
+    /*estilos agregados para cuadrar el modal*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    /**/
+
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.2);/* Color oscuro con transparencia */
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedor .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
+    /*text-align: center;*/
+}
+
+/*Cabecera del modal*/
+.contenedor .modal-content .modal-content-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.contenedor .modal-content .modal-content-header .modal-boton button {
+    color: #00BFFF;
+    font-size: 25px;
+    background-color: transparent;
+    border: none;
+}
+
+.contenedor .modal-content .modal-content-header .modal-boton button:hover {
+    cursor: pointer;
+    color: red;
+}
+
+/*Titulo del modal*/
+.contenedor .modal-content .modal-content-header .titulo-modal h1 {
+    font-size: 1.3rem;
+    color: #00BFFF;
+    font-family: 'Quicksand';
+}
+
+/*Inputs del modal*/
+.contenedor .modal-content .modal-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+    max-width: 600px;
+    /* Ajusta según necesites */
+    margin: auto;
+
+}
+
+.contenedor .modal-content .modal-inputs .inputs-compartidos {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.contenedor .modal-content .modal-inputs .inputs-compartidos div {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    /* Para que ambos divs compartan el espacio equitativamente */
+}
+
+.contenedor .modal-content .modal-inputs .inputs-compartidos label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-family: 'Quicksand';
+    font-size: 14px;
+}
+
+.contenedor .modal-content .modal-inputs .inputs-compartidos div input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/*Boton agregar del modal*/
+.contenedor .modal-content .modal-inputs .boton-agregar {
+    margin-top: 10px;
+}
+
+.contenedor .modal-content .modal-inputs .boton-agregar button {
+    font-size: 17px;
+    font-weight: bold;
+    font-family: 'Quicksand';
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    border: none;
+}
+.contenedor .modal-content .modal-inputs .boton-agregar button:disabled{
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.contenedor .modal-content .modal-inputs .boton-agregar button:hover {
+    cursor: pointer;
+    background-color: #99ccff;
+}

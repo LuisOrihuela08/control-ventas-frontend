@@ -1,19 +1,35 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Producto } from '../models/Producto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductoService {
 
+  //Esto es para actualizar el inventario de productos
+  private productosUpdateSource =new BehaviorSubject<void>(undefined);//esto es para actualizar el inventario de productos
+  productosUpdate$ = this.productosUpdateSource.asObservable();//esto es para actualizar el inventario de productos
+
   constructor(private http: HttpClient) { }
+
+  //Método para actualizar el inventario de productos
+  notificarProductosUpdate(){
+    this.productosUpdateSource.next();
+  }
+
 
   //Método para listar los productos paginados
   listProductosPaginados(page: number, size: number): Observable<any> {
     const params = new HttpParams().set('page', page.toString())
       .set('size', size.toString());
     return this.http.get('http://localhost:8080/api/producto/list-page', { params });
+  }
+
+  //Método para agregar producto
+  addProducto(producto: Producto): Observable<any>{
+    return this.http.post('http://localhost:8080/api/producto/register', producto);
   }
 
   //Método para buscar producto por nombre

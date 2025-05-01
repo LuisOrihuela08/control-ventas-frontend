@@ -10,4 +10,6 @@
     width: 100%;
     height: 100%;
   }
-  
+  .swal2-container {
+    font-family: 'Quicksand'; /* Reemplaza 'TuNuevaFuente' con el nombre de tu fuente */
+  }

@@ -1,39 +1,70 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Producto } from '../../shared/models/Producto';
 import { ProductoService } from '../../shared/services/producto.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
+import { ModalService } from '../../shared/services/modal.service';
+import { ProductosAddModalComponent } from './productos-add-modal/productos-add-modal.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-productos',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ProductosAddModalComponent],
   templateUrl: './productos.component.html',
   styleUrl: './productos.component.css'
 })
-export class ProductosComponent implements OnInit {
+export class ProductosComponent implements OnInit, OnDestroy {
 
   productos: Producto[] = [];
 
+  //Esto es para la busqueda de productos y archivo excel, PDF
   nombreProductoBuscado: string = ''; // Variable para almacenar el nombre buscado
   marcaBuscada: string = ''; // Variable para almacenar la marca buscada
   selectFile: File | null = null; // Variable para almacenar el archivo seleccionado
   mensajeImportExcel: string = ''; // Mensaje para mostrar el resultado de la importación
   progresoImportExcel: number = 0; // Progreso de la carga del archivo
+  //Esto es para los modales
+  isModalAgregarProductoVisible: boolean = false; // Variable para controlar la visibilidad del modal de agregar producto
   //Esto es para la paginacion:
   currentPage: number = 0;//Numero de pagina
-  pageSize: number = 15; // Número de elementos por página
+  pageSize: number = 14; // Número de elementos por página
   totalPages: number = 1; // Se actualizará según la respuesta del backend
+  //Esto es para actualizar el inventario de productos
+  private productosSubscribe: Subscription = undefined!; // Esto es para actualizar el inventario de productos
 
   //Esto es para el input de archivo
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>; // Referencia al input de archivo
 
-  constructor(private productoService: ProductoService) { }
+  constructor(private productoService: ProductoService,
+              private modalService: ModalService
+              ) { }
+
+  ngOnDestroy(): void {
+    //Aca nos aseguramos de cerrar la subscripcion al servicio
+    if(this.productosSubscribe){
+      this.productosSubscribe.unsubscribe();
+    }
+  }
 
 
   ngOnInit(): void {
     this.listarProductosPaginados();
+    this.modalService.$modalAgregarProducto.subscribe((valor) => {this.isModalAgregarProductoVisible = valor})
+    this.productosSubscribe = this.productoService.productosUpdate$.subscribe(
+      () => {
+        this.listarProductosPaginados(); // Actualizar la lista de productos al recibir la notificación
+        console.log('Lista de productos actualizada desde el servicio');
+      }
+    )
+
+  }
+
+  //Esto es para abrir el modal de agregar producto
+  mostrarModalAgregarProducto() {
+    this.modalService.$modalAgregarProducto.emit(true);
+    console.log('Modal de agregar producto abierto', this.isModalAgregarProductoVisible);
   }
 
   /*Listar Productos*/
@@ -184,6 +215,7 @@ export class ProductosComponent implements OnInit {
           case HttpEventType.Response:
             this.mensajeImportExcel = 'Archivo importado exitosamente.';
             alert(this.mensajeImportExcel);
+            console.log(this.mensajeImportExcel);
             this.progresoImportExcel = 0;
             this.selectFile = null;
             this.listarProductosPaginados();
