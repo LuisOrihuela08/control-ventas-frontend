@@ -19,7 +19,6 @@ export class ProductoService {
     this.productosUpdateSource.next();
   }
 
-
   //Método para listar los productos paginados
   listProductosPaginados(page: number, size: number): Observable<any> {
     const params = new HttpParams().set('page', page.toString())
@@ -30,6 +29,11 @@ export class ProductoService {
   //Método para agregar producto
   addProducto(producto: Producto): Observable<any>{
     return this.http.post('http://localhost:8080/api/producto/register', producto);
+  }
+
+  //Método para eliminar producto
+  deleteProducto(id: string): Observable<any>{
+    return this.http.delete('http://localhost:8080/api/producto/delete/' + id);
   }
 
   //Método para buscar producto por nombre

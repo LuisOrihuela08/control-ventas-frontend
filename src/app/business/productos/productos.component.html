@@ -52,7 +52,7 @@
                         <td>{{producto.cantidad}}</td>
                         <td>{{producto.precio_unitario}}</td>
                         <td class="button-acciones">
-                            <button class="trash">
+                            <button (click)="eliminarProducto(producto.id)" class="trash">
                                 <i id="trash" class="fa-solid fa-trash"></i>
                             </button>
                             <button class="edit">

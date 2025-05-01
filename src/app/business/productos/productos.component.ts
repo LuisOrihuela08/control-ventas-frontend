@@ -7,6 +7,7 @@ import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { ModalService } from '../../shared/services/modal.service';
 import { ProductosAddModalComponent } from './productos-add-modal/productos-add-modal.component';
 import { Subscription } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-productos',
@@ -229,6 +230,46 @@ export class ProductosComponent implements OnInit, OnDestroy {
         this.progresoImportExcel = 0;
       }
     });
+  }
 
+  //Método para eliminar producto
+  eliminarProducto(id: string): void {
+    
+    Swal.fire({
+      title: '¿Estás seguro de eliminar este producto?',
+      text: 'No habra manera de revertir esta acción',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, quiero eliminarlo!"
+    }).then((result) => {
+      if(result.isConfirmed){
+        this.productoService.deleteProducto(id).subscribe(
+          (response) => {
+            Swal.fire({
+              title: 'Producto eliminado',
+              text: 'El producto ha sido eliminado exitosamente.',
+              icon: 'success',
+              confirmButtonText: 'Aceptar',
+            });
+            console.log(`Inventario con ID ${id} eliminado correctamente`);
+            console.log('Respuesta del servidor: ', response);
+            // Notificar al servicio que se actualizó el inventario de productos
+            this.productos = this.productos.filter(producto => producto.id !== id); // Actualizar la lista de productos en el componente
+            this.productoService.notificarProductosUpdate();
+          },
+          (error) => {
+            console.error('Error al eliminar el producto: ', error);
+            Swal.fire({
+              title: 'Error al eliminar el producto',
+              text: 'No se pudo eliminar el producto.',
+              icon: 'error',
+              confirmButtonText: 'Aceptar',
+            });
+          }
+        )
+      }
+    })
   }
 }
