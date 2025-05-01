@@ -1,14 +1,86 @@
 <div class="body">
-    <div class="ventas-titulo">
+    <div class="productos-titulo">
         <h1>Bienvenido al panel de Ventas</h1>
     </div>
     <div class="content">
-        <div class="acciones">
+        <div class="cabecera">
+            <div class="acciones">
+                <div class="inputs">
+                    <label for="">Marca:</label>
+                    <input type="search" placeholder="Ejm: Adidas">
+                </div>
+                <div class="inputs">
+                    <label for="">Nombre:</label>
+                    <input type="search" placeholder="Ejm: Satire">
+                </div>
+                <button><i class="fa-solid fa-file-excel"></i> Generar
+                    Excel</button>
+                <button ><i class="fa-solid fa-file-pdf"></i> Generar PDF</button>
+                <!--Esto es para importar excel - El input está oculto-->
+                <input type="file" #fileInput style="display: none"/>
+                <button><i class="fa-solid fa-file-import"></i> Importar Excel</button>
+            </div>
+            <div class="agregar">
+                <button><i class="fa-solid fa-plus"></i> Agregar Venta</button>
+            </div>
 
         </div>
-        <div class="tabla">
+        <div class="tabla-content">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Productos</th>
+                        <th>Monto Total</th>
+                        <th>Metodo Pago</th>
+                        <th>Dinero Cliente</th>                        
+                        <th>Vuelto</th>
+                        <th>Fecha</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let venta of ventas">
+                        <td>{{venta.id}}</td>
+                        <span *ngFor="let prod of venta.productos_vendidos; let last = last">
+                            {{ prod.nombreProducto }}<span *ngIf="!last">, </span>
+                          </span>
+                        <td>{{venta.monto_total}}</td>
+                        <td>{{venta.metodo_pago}}</td>
+                        <td>{{venta.dinero_cliente}}</td>
+                        <td>{{venta.vuelto}}</td>
+                        <td>{{venta.fechaCompra}}</td>
+                        <td class="button-acciones">
+                            <button class="trash">
+                                <i id="trash" class="fa-solid fa-trash"></i>
+                            </button>
+                            <button class="edit">
+                                <i id="pencil" class="fa-solid fa-pencil"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Mensaje cuando no hay resultados para la busqueda de marca
+        <p *ngIf="productos.length === 0 && marcaBuscada.trim() !== ''">No se encontraron resultados
+            para la marca: <strong></strong> </p>
+        <!-- Mensaje cuando no hay resultados para la busqueda de marca
+        <p *ngIf="productos.length === 0 && nombreProductoBuscado.trim() !== ''">No se encontraron resultados
+            para el nombre: <strong></strong> </p>
+        <!-- Controles de paginación -->
+        <div class="paginacion">
+            <button (click)="prevPage()" [disabled]="currentPage === 0"><i class="fa-solid fa-chevron-left"></i>
+                Anterior</button>
+            <span>Página {{ currentPage + 1 }} de {{ totalPages }}</span>
+            <button (click)="nextPage()" [disabled]="currentPage >= totalPages - 1">Siguiente <i
+                    class="fa-solid fa-chevron-right"></i></button>
+        </div>
+
             
-        </div>
     </div>
-
 </div>
+
+<!--Seccion Modal-->
+
