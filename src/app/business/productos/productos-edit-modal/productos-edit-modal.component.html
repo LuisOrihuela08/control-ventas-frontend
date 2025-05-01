@@ -1,0 +1,44 @@
+<div class="contenedor">
+    <div class="modal-content">
+        <div class="modal-content-header">
+            <div class="titulo-modal">
+                <h1>Completar todos los campos:</h1>
+            </div>
+            <div class="modal-boton">
+                <a >
+                    <button (click)="cerrarModalEditar()"><i class="fa-solid fa-circle-xmark"></i></button>
+                </a>
+            </div>
+        </div>
+        <!--Acuerda de agregar por ejemplo formControlName="marca", ya que sin esto no se ejecutara ninguna accion porque el formulario no reconocera estos campos-->
+        <div class="modal-inputs">
+            <form [formGroup]="productoForm" (ngSubmit)="editarProducto()">
+                <div class="inputs-compartidos">
+                    <div>
+                        <label for="nombreProducto">Nombre:</label>
+                        <input formControlName="nombreProducto" id="nombreProducto" name="nombreProducto" type="text" required>
+                    </div>
+                    <div>
+                        <label for="marca">Marca:</label>
+                        <input formControlName="marca" id="marca" name="marca" type="text" required>
+                    </div>
+                </div>
+                <div class="inputs-compartidos">
+                    <div>
+                        <label for="cantidad">Cantidad:</label>
+                        <input formControlName="cantidad" id="cantidad" name="cantidad" type="number" required>
+                    </div>
+                    <div>
+                        <label for="precio_unitario">Precio Unitario:</label>
+                        <input formControlName="precio_unitario" id="precio_unitario" name="precio_unitario" type="number" required>
+                    </div>
+                    
+                </div>
+                <div class="boton-agregar">
+                    <button type="submit" >Editar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

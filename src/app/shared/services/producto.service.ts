@@ -31,6 +31,11 @@ export class ProductoService {
     return this.http.post('http://localhost:8080/api/producto/register', producto);
   }
 
+  //Método para editar producto
+  editProducto(id: string, producto: Producto): Observable<any>{
+    return this.http.put('http://localhost:8080/api/producto/update/' + id, producto);
+  }
+  
   //Método para eliminar producto
   deleteProducto(id: string): Observable<any>{
     return this.http.delete('http://localhost:8080/api/producto/delete/' + id);

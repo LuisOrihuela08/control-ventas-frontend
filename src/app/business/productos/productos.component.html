@@ -55,7 +55,7 @@
                             <button (click)="eliminarProducto(producto.id)" class="trash">
                                 <i id="trash" class="fa-solid fa-trash"></i>
                             </button>
-                            <button class="edit">
+                            <button (click)="mostrarModalEditarProducto(producto)" class="edit">
                                 <i id="pencil" class="fa-solid fa-pencil"></i>
                             </button>
                         </td>
@@ -84,4 +84,8 @@
 <!--Seccion Modal-->
 <div *ngIf="isModalAgregarProductoVisible == true">
     <app-productos-add-modal></app-productos-add-modal>
+</div>
+<div *ngIf="isModalEditarProductoVisible && productoSeleccionado">
+    <app-productos-edit-modal [producto]="productoSeleccionado!"></app-productos-edit-modal>
+
 </div>

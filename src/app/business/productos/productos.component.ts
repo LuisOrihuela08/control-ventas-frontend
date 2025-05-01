@@ -8,11 +8,12 @@ import { ModalService } from '../../shared/services/modal.service';
 import { ProductosAddModalComponent } from './productos-add-modal/productos-add-modal.component';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
+import { ProductosEditModalComponent } from './productos-edit-modal/productos-edit-modal.component';
 
 @Component({
   selector: 'app-productos',
   standalone: true,
-  imports: [CommonModule, FormsModule, ProductosAddModalComponent],
+  imports: [CommonModule, FormsModule, ProductosAddModalComponent, ProductosEditModalComponent],
   templateUrl: './productos.component.html',
   styleUrl: './productos.component.css'
 })
@@ -28,6 +29,8 @@ export class ProductosComponent implements OnInit, OnDestroy {
   progresoImportExcel: number = 0; // Progreso de la carga del archivo
   //Esto es para los modales
   isModalAgregarProductoVisible: boolean = false; // Variable para controlar la visibilidad del modal de agregar producto
+  isModalEditarProductoVisible: boolean = false; // Variable para controlar la visibilidad del modal de editar producto
+  productoSeleccionado: Producto | null = null; // Variable para almacenar el producto seleccionado para editar
   //Esto es para la paginacion:
   currentPage: number = 0;//Numero de pagina
   pageSize: number = 14; // Número de elementos por página
@@ -53,6 +56,7 @@ export class ProductosComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.listarProductosPaginados();
     this.modalService.$modalAgregarProducto.subscribe((valor) => {this.isModalAgregarProductoVisible = valor})
+    this.modalService.$modalEditarProducto.subscribe((valor) => {this.isModalEditarProductoVisible = valor})
     this.productosSubscribe = this.productoService.productosUpdate$.subscribe(
       () => {
         this.listarProductosPaginados(); // Actualizar la lista de productos al recibir la notificación
@@ -66,6 +70,13 @@ export class ProductosComponent implements OnInit, OnDestroy {
   mostrarModalAgregarProducto() {
     this.modalService.$modalAgregarProducto.emit(true);
     console.log('Modal de agregar producto abierto', this.isModalAgregarProductoVisible);
+  }
+
+  //Esto es para mostrar el modal de editar producto
+  mostrarModalEditarProducto(producto: Producto){
+    this.productoSeleccionado = producto; // Asignar el producto seleccionado al modal
+    this.modalService.$modalEditarProducto.emit(true);
+    console.log('Modal de editar producto abierto', this.isModalEditarProductoVisible);
   }
 
   /*Listar Productos*/
