@@ -2,18 +2,21 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Venta } from '../../shared/models/Venta';
 import { VentaService } from '../../shared/services/venta.service';
-import { Producto } from '../../shared/models/Producto';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-ventas',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './ventas.component.html',
   styleUrl: './ventas.component.css'
 })
 export class VentasComponent implements OnInit{
 
   ventas: Venta[] = [];
+
+  //Esto es para la busqueda de ventas
+  nombreProductoBuscado: string = ''; // Variable para almacenar el nombre buscado
 
 
   //Esto es para la paginacion:
@@ -56,6 +59,29 @@ export class VentasComponent implements OnInit{
       this.currentPage--;
       this.listarVentasPaginadas();
     }
+  }
+
+  //Método para buscar venta por nombre del Producto
+  buscarVentaPorNombreProducto(): void {
+
+    if(!this.nombreProductoBuscado.trim()){
+      this.listarVentasPaginadas();
+      return;
+    }
+
+    //En caso si se proporciona un nombre de producto
+    this.ventaService.findVentaByNombreProducto(this.nombreProductoBuscado, this.currentPage, this.pageSize).subscribe(
+      (data: any) => {
+        this.ventas = data.content;
+        this.totalPages = data.totalPages;
+        console.log('Ventas encontradas: ', this.ventas);
+      },
+      (error) => {
+        console.error('Error al buscar ventas con el nombre del producto: ', error);
+        this.ventas = []; // Limpiar la lista de ventas en caso de error
+        this.totalPages = 0; // Reiniciar el total de páginas
+      }
+    )
   }
 
 }
