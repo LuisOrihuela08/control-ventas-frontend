@@ -1,0 +1,78 @@
+<div class="contenedor">
+    <div class="modal-content">
+        <div class="modal-content-header">
+            <div class="titulo-modal">
+                <h1>Registrar una venta:</h1>
+            </div>
+            <div class="modal-boton">
+                <a>
+                    <button (click)="cerrarModalAgregarProducto()"><i class="fa-solid fa-circle-xmark"></i></button>
+                </a>
+            </div>
+        </div>
+        <div class="modal-buscador-productos">
+            <div class="buscador">
+                <label for="">Nombre del Producto:</label>
+                <input (input)="buscarProductoPorNombre()" [(ngModel)]="nombreProductoBuscado" type="search" placeholder="Ejm: Adidas">
+                <button (click)="limpiarFiltros()"><i class="fa-solid fa-broom"></i> Limpiar filtro</button>
+            </div>
+            <div class="tabla-content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Marca</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unitario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let producto of productos ">
+                            <td>{{producto.nombreProducto}}</td>
+                            <td>{{producto.marca}}</td>
+                            <td>{{producto.cantidad}}</td>
+                            <td>{{producto.precio_unitario}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mensaje">
+                <!-- Mensaje cuando no hay resultados para la busqueda de marca-->
+                <p *ngIf="productos.length === 0 && nombreProductoBuscado.trim() !== ''">No se encontraron resultados
+                    para el nombre: <strong>{{nombreProductoBuscado}}</strong> </p>
+            </div>
+
+        </div>
+        <!--Acuerda de agregar por ejemplo formControlName="marca", ya que sin esto no se ejecutara ninguna accion porque el formulario no reconocera estos campos-->
+        <div class="modal-inputs">
+            <form>
+                <div class="inputs-compartidos">
+                    <div>
+                        <label for="nombreProducto">Nombre:</label>
+                        <input formControlName="nombreProducto" id="nombreProducto" name="nombreProducto" type="text"
+                            required>
+                    </div>
+                    <div>
+                        <label for="marca">Marca:</label>
+                        <input formControlName="marca" id="marca" name="marca" type="text" required>
+                    </div>
+                </div>
+                <div class="inputs-compartidos">
+                    <div>
+                        <label for="cantidad">Cantidad:</label>
+                        <input formControlName="cantidad" id="cantidad" name="cantidad" type="number" required>
+                    </div>
+                    <div>
+                        <label for="precio_unitario">Precio Unitario:</label>
+                        <input formControlName="precio_unitario" id="precio_unitario" name="precio_unitario"
+                            type="number" required>
+                    </div>
+
+                </div>
+                <div class="boton-agregar">
+                    <button type="submit">Agregar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

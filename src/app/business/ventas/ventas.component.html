@@ -19,7 +19,7 @@
                 <button (click)="limpiarFiltros()"><i class="fa-solid fa-broom"></i> Limpiar filtros</button>
             </div>
             <div class="agregar">
-                <button><i class="fa-solid fa-plus"></i> Agregar Venta</button>
+                <button (click)="mostrarModalAgregarVenta()"><i class="fa-solid fa-plus"></i> Agregar Venta</button>
             </div>
 
         </div>
@@ -58,7 +58,7 @@
             </table>
         </div>
 
-        <!-- Mensaje cuando no hay resultados para la busqueda de marca-->
+        <!-- Mensaje cuando no hay resultados para la busqueda del nombre de producto-->
         <p *ngIf="ventas.length === 0 && nombreProductoBuscado.trim() !== ''">No se encontraron resultados
             para la marca: <strong>{{nombreProductoBuscado}}</strong> </p>
         <!-- Mensaje cuando no hay resultados para la busqueda entre fechas-->
@@ -80,5 +80,8 @@
 <!--Seccion Modal-->
 <div *ngIf="isModalReporteVentasMetodoPago == true">
     <app-ventas-reporte-metodo-pago></app-ventas-reporte-metodo-pago>
+</div>
+<div *ngIf="isModalAgregarVenta == true">
+    <app-ventas-add-modal></app-ventas-add-modal>
 </div>
 

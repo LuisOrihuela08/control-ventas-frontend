@@ -13,4 +13,5 @@ export class ModalService {
 
   //Esto es para ventas
   $modalReporteVentasMetodoPago = new EventEmitter<any>();
+  $modalAgregarVenta = new EventEmitter<any>();
 }

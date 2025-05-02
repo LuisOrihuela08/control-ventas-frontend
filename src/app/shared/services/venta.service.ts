@@ -23,6 +23,11 @@ export class VentaService {
     return this.http.get('http://localhost:8080/api/venta/buscar-nombre/' + nombreProducto, { params });  
   }
 
+  //Método para buscar productos por nombre, y es para buscar dentro del componenete de agregar venta
+  findProductoByNombreForVenta(nombreProducto: string): Observable<any>{
+    return this.http.get('http://localhost:8080/api/producto/find/nombreProducto/venta/' + nombreProducto);
+  }
+
   //Método para buscar ventas por intervalos de fechas
   findVentaByFechasBetween(fechaInicio: string, fechaFin: string, page: number, size: number): Observable<any>{
     const params = new HttpParams().set('page', page.toString())

@@ -5,11 +5,12 @@ import { VentaService } from '../../shared/services/venta.service';
 import { FormsModule } from '@angular/forms';
 import { ModalService } from '../../shared/services/modal.service';
 import { VentasReporteMetodoPagoComponent } from './ventas-reporte-metodo-pago/ventas-reporte-metodo-pago.component';
+import { VentasAddModalComponent } from './ventas-add-modal/ventas-add-modal.component';
 
 @Component({
   selector: 'app-ventas',
   standalone: true,
-  imports: [CommonModule, FormsModule, VentasReporteMetodoPagoComponent],
+  imports: [CommonModule, FormsModule, VentasReporteMetodoPagoComponent, VentasAddModalComponent],
   templateUrl: './ventas.component.html',
   styleUrl: './ventas.component.css'
 })
@@ -24,6 +25,7 @@ export class VentasComponent implements OnInit{
 
   //Esto es para los modales
   isModalReporteVentasMetodoPago: boolean = false;
+  isModalAgregarVenta: boolean = false;
   //Esto es para la paginacion:
   currentPage: number = 0;//Numero de pagina
   pageSize: number = 14; // Número de elementos por página
@@ -36,12 +38,19 @@ export class VentasComponent implements OnInit{
   ngOnInit(): void {
     this.listarVentasPaginadas();
     this.modalService.$modalReporteVentasMetodoPago.subscribe((valor) => {this.isModalReporteVentasMetodoPago = valor})
+    this.modalService.$modalAgregarVenta.subscribe((valor) => {this.isModalAgregarVenta = valor})
   }
 
   //Esto es para abrir el modal de reporte de ventas por metodo  de pago
   mostrarModalReporteVentasMetodoPago(){
     this.modalService.$modalReporteVentasMetodoPago.emit(true);
     console.log('Modal de reporte de ventas por metodo de pago abierto');
+  }
+
+  //Método para abrir el modal de agregar venta
+  mostrarModalAgregarVenta(){
+    this.modalService.$modalAgregarVenta.emit(true);
+    console.log('Modal de agregar venta abierto', this.isModalAgregarVenta);
   }
 
   //Método para listar las ventas paginadas
