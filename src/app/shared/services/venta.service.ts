@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Venta } from '../models/Venta';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,11 @@ export class VentaService {
     const params = new HttpParams().set('page', page.toString())
                                    .set('size', size.toString());    
     return this.http.get('http://localhost:8080/api/venta/list-page', { params });  
+  }
+
+  createVenta(venta: Venta): Observable<any>{
+    return this.http.post('http://localhost:8080/api/venta/register', venta);
+
   }
 
   //Método para buscar venta por nombre del producto

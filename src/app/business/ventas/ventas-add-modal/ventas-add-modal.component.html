@@ -13,7 +13,8 @@
         <div class="modal-buscador-productos">
             <div class="buscador">
                 <label for="">Nombre del Producto:</label>
-                <input (input)="buscarProductoPorNombre()" [(ngModel)]="nombreProductoBuscado" type="search" placeholder="Ejm: Adidas">
+                <input (input)="buscarProductoPorNombre()" [(ngModel)]="nombreProductoBuscado" type="search"
+                    placeholder="Ejm: Adidas">
                 <button (click)="limpiarFiltros()"><i class="fa-solid fa-broom"></i> Limpiar filtro</button>
             </div>
             <div class="tabla-content">
@@ -24,6 +25,7 @@
                             <th>Marca</th>
                             <th>Cantidad</th>
                             <th>Precio Unitario</th>
+                            <th>Acción</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,6 +34,9 @@
                             <td>{{producto.marca}}</td>
                             <td>{{producto.cantidad}}</td>
                             <td>{{producto.precio_unitario}}</td>
+                            <td>
+                                <button (click)="agregarProductoAVenta(producto)">Agregar</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -41,36 +46,61 @@
                 <p *ngIf="productos.length === 0 && nombreProductoBuscado.trim() !== ''">No se encontraron resultados
                     para el nombre: <strong>{{nombreProductoBuscado}}</strong> </p>
             </div>
-
         </div>
         <!--Acuerda de agregar por ejemplo formControlName="marca", ya que sin esto no se ejecutara ninguna accion porque el formulario no reconocera estos campos-->
+        <!--Esta es la seccion donde se lista los productos agregados a una venta-->
+        <hr>
+        <div class="productos-agregados">
+            <h3>Producto(s) seleccionado(s) para la venta:</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Marca</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                        <th>Subtotal</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let p of productosVenta; let i = index">
+                        <td>{{p.nombreProducto}}</td>
+                        <td>{{p.marca}}</td>
+                        <td><input type="number" [(ngModel)]="p.cantidad" min="1"></td>
+                        <td>{{p.precio_unitario}}</td>
+                        <td>{{p.cantidad * p.precio_unitario | number: '1.2-2'}}</td>
+                        <td><button (click)="eliminarProductoDeVenta(i)"><i id="trash"
+                                    class="fa-solid fa-trash"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <!--Esta es la seccion para crear una venta-->
         <div class="modal-inputs">
-            <form>
+            <form [formGroup]="ventaForm" (ngSubmit)="registrarVenta()">
                 <div class="inputs-compartidos">
                     <div>
-                        <label for="nombreProducto">Nombre:</label>
-                        <input formControlName="nombreProducto" id="nombreProducto" name="nombreProducto" type="text"
+                        <label for="metodo_pago">Método de Pago:</label>
+                        <input formControlName="metodo_pago" id="metodo_pago" name="metodo_pago" type="text" required>
+                    </div>
+                    <div>
+                        <label for="dinero_cliente">Dinero Cliente:</label>
+                        <input formControlName="dinero_cliente" id="dinero_cliente" name="dinero_cliente" type="number"
                             required>
                     </div>
-                    <div>
-                        <label for="marca">Marca:</label>
-                        <input formControlName="marca" id="marca" name="marca" type="text" required>
-                    </div>
                 </div>
-                <div class="inputs-compartidos">
-                    <div>
-                        <label for="cantidad">Cantidad:</label>
-                        <input formControlName="cantidad" id="cantidad" name="cantidad" type="number" required>
-                    </div>
-                    <div>
-                        <label for="precio_unitario">Precio Unitario:</label>
-                        <input formControlName="precio_unitario" id="precio_unitario" name="precio_unitario"
-                            type="number" required>
-                    </div>
-
+                <div class="calculos">
+                    <p><strong>Total:</strong> {{ calcularTotal() | number: '1.2-2' }} soles</p>
+                    <p><strong>Dinero del Cliente:</strong> {{ ventaForm.get('dinero_cliente')?.value || 0 | number:
+                        '1.2-2'
+                        }} soles</p>
+                    <p><strong>Vuelto:</strong> {{ calcularVuelto() | number: '1.2-2' }} soles</p>
                 </div>
                 <div class="boton-agregar">
-                    <button type="submit">Agregar</button>
+                    <button type="submit">Registrar Venta</button>
                 </div>
             </form>
         </div>

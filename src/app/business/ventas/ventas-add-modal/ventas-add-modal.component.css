@@ -28,8 +28,8 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    max-width: 600px;
+    width: 100%;
+    max-width: 700px;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -59,35 +59,6 @@
     font-size: 1.3rem;
     color: #00BFFF;
     font-family: 'Quicksand';
-}
-/**/
-/*Area de la Tabla*/
-.contenedor .tabla-content{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 10px 5px;
-    justify-content: center;
-}
-.contenedor .tabla-content table{
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    overflow: hidden;
-}
-.contenedor .tabla-content th{
-    background: #00BFFF;
-    color: white;
-}
-
-.contenedor .tabla-content th, td{
-    padding: 12px 15px;
-    text-align: center;
-}
-.contenedor .tabla-content tr:hover{
-    background: #f1f1f1;
 }
 /*Area del buscador*/
 .contenedor .buscador{
@@ -119,6 +90,103 @@
     transition: 0.3s;
     cursor: pointer;
 }
+/**/
+/*Area de la Tabla para buscar productos*/
+.contenedor .tabla-content{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px 5px;
+    justify-content: center;
+}
+.contenedor .tabla-content table{
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+}
+.contenedor .tabla-content th{
+    background: #00BFFF;
+    color: white;
+}
+
+.contenedor .tabla-content th, td{
+    padding: 12px 15px;
+    text-align: center;
+}
+.contenedor .tabla-content tr:hover{
+    background: #f1f1f1;
+}
+.contenedor .tabla-content button{
+    font-size: 16px;
+    padding: 11px 15px;
+    background-color: #00BFFF;
+    color: white;
+    border-radius: 7px;
+    border: none;
+}
+.contenedor .tabla-content button:hover{
+    background-color: #0000CD;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+/*Area de la Tabla de los productos seleccionados*/
+.contenedor .productos-agregados{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px 5px;
+    justify-content: center;
+}
+.contenedor .productos-agregados table{
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+}
+.contenedor .productos-agregados th{
+    background: #00BFFF;
+    color: white;
+}
+
+.contenedor .productos-agregados th, td{
+    padding: 12px 15px;
+    text-align: center;
+}
+.contenedor .productos-agregados tr:hover{
+    background: #f1f1f1;
+}
+.contenedor .productos-agregados input{
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 11px 15px;
+    font-size: 16px;
+    width: 100%;
+}
+.contenedor .productos-agregados input:focus{
+    outline: none;
+    border-color: #00BFFF;
+}
+.contenedor .productos-agregados button{
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+}
+.contenedor .productos-agregados button #trash{
+    border-radius: 7px;
+    border: none;
+    color: red;
+    font-size: 20px;
+}
+.contenedor .productos-agregados button #trash:hover{
+    cursor: pointer;
+    color: #b30000;
+}
 
 /*Inputs del modal para agregar*/
 .contenedor .modal-content .modal-inputs {
@@ -127,7 +195,7 @@
     gap: 18px;
     width: 100%;
     max-width: 600px;
-    /* Ajusta según necesites */
+    /* Ajusta según necesites Adidas Ultraboost*/
     margin: auto;
 
 }
@@ -159,7 +227,9 @@
     border-radius: 5px;
     font-size: 14px;
 }
-
+.contenedor .modal-content .modal-inputs .calculos{
+    margin-top: 10px;
+}
 /*Boton agregar del modal*/
 .contenedor .modal-content .modal-inputs .boton-agregar {
     margin-top: 10px;
