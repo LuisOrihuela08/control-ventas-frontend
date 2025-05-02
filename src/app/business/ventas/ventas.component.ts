@@ -133,4 +133,21 @@ export class VentasComponent implements OnInit{
     this.listarVentasPaginadas(); // Volver a listar las ventas paginadas
   }
 
+  //Método para generar el PDF de una venta
+  descargarVentaPDF(id: string): void{
+
+    this.ventaService.generateVentaPDF(id).subscribe({
+      next: (pdfBlob) => {
+        const fileURL = window.URL.createObjectURL(pdfBlob);
+        window.open(fileURL, '_blank');// Abrir el PDF en una nueva pestaña
+        console.log('PDF de la venta generado y descargado con éxito.');
+      },
+      error: (error) => {
+        console.error('Error al descargar el PDF de la venta: ', error);
+        alert('Error al descargar el PDF de la venta. Por favor, inténtelo de nuevo más tarde.');
+      }
+      
+    });
+  }
+
 }

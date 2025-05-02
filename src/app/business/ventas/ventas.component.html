@@ -30,30 +30,27 @@
                         <th>ID</th>
                         <th>Productos</th>
                         <th>Monto Total</th>
-                        <th>Metodo Pago</th>
+                        <th>Método Pago</th>
                         <th>Dinero Cliente</th>                        
                         <th>Vuelto</th>
                         <th>Fecha</th>
-                        <th>Acción</th>
+                        <th>Generar Nota Venta</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let venta of ventas">
                         <td>{{venta.id}}</td>
                         <span *ngFor="let prod of venta.productos_vendidos; let last = last">
-                            {{ prod.nombreProducto }}<span *ngIf="!last">, </span>
-                          </span>
+                            {{ prod.nombreProducto }} ({{prod.cantidad}})<span *ngIf="!last">, </span>
+                        </span>
                         <td>S/. {{venta.monto_total}}</td>
                         <td>{{venta.metodo_pago}}</td>
                         <td>S/. {{venta.dinero_cliente}}</td>
                         <td>S/. {{venta.vuelto}}</td>
                         <td>{{venta.fechaCompra | date:'yyyy-MM-dd HH:mm'}}</td><!--Para formatear la fecha-->
                         <td class="button-acciones">
-                            <button class="trash">
-                                <i id="trash" class="fa-solid fa-trash"></i>
-                            </button>
-                            <button class="edit">
-                                <i id="pencil" class="fa-solid fa-pencil"></i>
+                            <button (click)="descargarVentaPDF(venta.id)" class="print">
+                                <i class="fa-solid fa-print"></i>
                             </button>
                         </td>
                     </tr>
@@ -67,9 +64,6 @@
         <!-- Mensaje cuando no hay resultados para la busqueda entre fechas-->
         <p class="p-not-content" *ngIf="ventas.length === 0 && fechaInicio && fechaFin">No se encontraron resultados
         entre las fechas {{fechaInicio}} y {{fechaFin}}</p>
-        <!-- Mensaje cuando no hay resultados para la busqueda de marca
-        <p *ngIf="productos.length === 0 && nombreProductoBuscado.trim() !== ''">No se encontraron resultados
-            para el nombre: <strong></strong> </p>
         <!-- Controles de paginación -->
         <div class="paginacion">
             <button (click)="prevPage()" [disabled]="currentPage === 0"><i class="fa-solid fa-chevron-left"></i>
@@ -86,6 +80,5 @@
 <!--Seccion Modal-->
 <div *ngIf="isModalReporteVentasMetodoPago == true">
     <app-ventas-reporte-metodo-pago></app-ventas-reporte-metodo-pago>
-
 </div>
 

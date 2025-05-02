@@ -36,4 +36,9 @@ export class VentaService {
   createReportVentasByMetodoPago(): Observable<any>{
     return this.http.get('http://localhost:8080/api/venta/total-ventas/metodo-pago');
   }
+
+  //Método para generar PDF de una venta
+  generateVentaPDF(id: string): Observable<any>{
+    return this.http.get('http://localhost:8080/api/venta/export/pdf/' + id, {responseType: 'blob'});
+  }
 }
