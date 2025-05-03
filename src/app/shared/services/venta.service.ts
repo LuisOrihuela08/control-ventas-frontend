@@ -34,6 +34,13 @@ export class VentaService {
     return this.http.get('http://localhost:8080/api/producto/find/nombreProducto/venta/' + nombreProducto);
   }
 
+  //Método para buscar ventas por el metodo de pago
+  findVentasByMetodoPago(metodoPago: string, page: number, size: number): Observable<any>{
+    const params = new HttpParams().set('page', page.toString())
+                                   .set('size', size.toString()); 
+    return this.http.get('http://localhost:8080/api/venta/buscar-metodoPago/' + metodoPago, { params });
+  }
+
   //Método para buscar ventas por intervalos de fechas
   findVentaByFechasBetween(fechaInicio: string, fechaFin: string, page: number, size: number): Observable<any>{
     const params = new HttpParams().set('page', page.toString())

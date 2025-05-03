@@ -20,6 +20,7 @@ export class VentasComponent implements OnInit{
 
   //Esto es para la busqueda de ventas
   nombreProductoBuscado: string = ''; // Variable para almacenar el nombre buscado 
+  metodoPagoBuscado: string = ''; // Variable para almacenar el metodo de pago buscado
   fechaInicio: string = ''; //Esto me va a permitir hacer la busqueda de inventario entre fechas
   fechaFin: string = ''; //Esto me va a permitir hacer la busqueda de inventario entre fechas
 
@@ -129,11 +130,34 @@ export class VentasComponent implements OnInit{
     )
   }
 
+  //Método para filtrar ventas por metodo de pago
+  buscarVentasPorMetodoPago(): void {
+    
+    if (!this.metodoPagoBuscado.trim()) {
+      this.listarVentasPaginadas();
+      return;
+    }
+
+    this.ventaService.findVentasByMetodoPago(this.metodoPagoBuscado, this.currentPage, this.pageSize).subscribe(
+      (data: any) => {
+        this.ventas = data.content;
+        this.totalPages = data.totalPages;
+        console.log('Ventas encontradas por metodo de pago: ', this.ventas);
+      },
+      (error) => {
+        console.error('Error al buscar ventas por metodo de pago: ', error);
+        this.ventas = []; // Limpiar la lista de ventas en caso de error
+        this.totalPages = 0; // Reiniciar el total de páginas
+      }
+    )
+  }
+
   //Método para limpiar los filtros de búsqueda
   limpiarFiltros(): void{
     this.fechaInicio = ''; // Reiniciar el campo de fecha de inicio
     this.fechaFin = ''; // Reiniciar el campo de fecha de fin
     this.nombreProductoBuscado = ''; // Reiniciar el campo de nombre del producto
+    this.metodoPagoBuscado = ''; // Reiniciar el campo de metodo de pago
 
     //Reiniciamos la paginacion
     this.currentPage = 0; // Reiniciar la página actual a la primera  

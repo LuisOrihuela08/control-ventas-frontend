@@ -30,7 +30,7 @@ export class VentasAddModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.ventaForm = this.fb.group({
-      metodo_pago: ['', Validators.required],
+      metodoPago: ['', Validators.required],
       dinero_cliente: ['', Validators.required],
       productos_vendidos: [null], // Inicializa el campo de productos vendidos como null
       monto_total: [0], // Inicializa el campo de monto total como 0
@@ -132,11 +132,11 @@ export class VentasAddModalComponent implements OnInit {
       return;
     }
 
-    const metodoPago = this.ventaForm.value.metodo_pago;
+    const metodoPago = this.ventaForm.value.metodoPago;
     const dineroCliente = this.ventaForm.value.dinero_cliente;
 
     // Asignar los valores al modelo
-    this.ventas.metodo_pago = metodoPago;
+    this.ventas.metodoPago = metodoPago;
     this.ventas.dinero_cliente = dineroCliente;
     this.ventas.productos_vendidos = this.productosVenta; // Asignar los productos a la venta
 

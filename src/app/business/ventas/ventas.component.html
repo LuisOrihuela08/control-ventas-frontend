@@ -9,13 +9,17 @@
                     <label for="">Producto:</label>
                     <input (input)="buscarVentaPorNombreProducto()" [(ngModel)]="nombreProductoBuscado" type="search" placeholder="Ejm: Superstar">
                 </div>
+                <div class="inputs">
+                    <label for="">Método P.:</label>
+                    <input (input)="buscarVentasPorMetodoPago()" [(ngModel)]="metodoPagoBuscado" type="search" placeholder="Ejm: Yape">
+                </div>
                 <div class="fecha-group">
                     <input type="date" name="fechaInicio" id="fechaInicio" [(ngModel)]="fechaInicio">
                     <input type="date" name="fechaFin" id="fechaFin" [(ngModel)]="fechaFin">
                     <button (click)="buscarVentasPorFechas()">🔍</button>
                 </div>              
                 <button (click)="mostrarModalReporteVentasMetodoPago()"><i class="fa-solid fa-wallet"></i> Reporte Método Pago</button>
-                <button ><i class="fa-solid fa-file-pdf"></i> Generar PDF</button>
+               <!--<button ><i class="fa-solid fa-file-pdf"></i> Generar PDF</button>-->
                 <button (click)="limpiarFiltros()"><i class="fa-solid fa-broom"></i> Limpiar filtros</button>
             </div>
             <div class="agregar">
@@ -44,7 +48,7 @@
                             {{ prod.nombreProducto }} ({{prod.cantidad}})<span *ngIf="!last">, </span>
                         </span>
                         <td>S/. {{venta.monto_total}}</td>
-                        <td>{{venta.metodo_pago}}</td>
+                        <td>{{venta.metodoPago}}</td>
                         <td>S/. {{venta.dinero_cliente}}</td>
                         <td>S/. {{venta.vuelto}}</td>
                         <td>{{venta.fechaCompra | date:'yyyy-MM-dd HH:mm'}}</td><!--Para formatear la fecha-->
