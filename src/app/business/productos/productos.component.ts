@@ -225,8 +225,14 @@ export class ProductosComponent implements OnInit, OnDestroy {
             }
             break;
           case HttpEventType.Response:
-            this.mensajeImportExcel = 'Archivo importado exitosamente.';
-            alert(this.mensajeImportExcel);
+            Swal.fire({
+              title: 'Archivo Excel importado',
+              text: 'El archivo excel de productos ha sido importado exitosamente.',
+              icon: 'success',
+              confirmButtonText: 'Aceptar',
+            })
+            this.mensajeImportExcel = 'Archivo Excel de productos importado exitosamente.';
+            /*alert(this.mensajeImportExcel);*/
             console.log(this.mensajeImportExcel);
             this.progresoImportExcel = 0;
             this.selectFile = null;

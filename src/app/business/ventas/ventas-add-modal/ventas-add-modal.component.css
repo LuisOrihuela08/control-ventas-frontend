@@ -141,11 +141,25 @@
     padding: 10px 5px;
     justify-content: center;
 }
+
 .contenedor .productos-agregados .scroll-tabla{
     max-height: 200px; /* Ajusta la altura según necesites */
     overflow-y: auto;
-    border: 1px solid #ccc;
     border-radius: 4px;
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+}
+.contenedor .productos-agregados .scroll-tabla table{
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
 }
 .contenedor .productos-agregados .scroll-tabla::-webkit-scrollbar{
     width: 8px;
@@ -153,14 +167,6 @@
 .contenedor .productos-agregados .scroll-tabla::-webkit-scrollbar-thumb{
     background-color: #ccc;
     border-radius: 4px;
-}
-.contenedor .productos-agregados table{
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    overflow: hidden;
 }
 .contenedor .productos-agregados th{
     background: #00BFFF;

@@ -15,6 +15,12 @@
             <form [formGroup]="productoForm" (ngSubmit)="agregarProducto()">
                 <div class="inputs-compartidos">
                     <div>
+                        <label for="codigo">Código:</label>
+                        <input formControlName="codigo" id="codigo" name="codigo" type="text" required>
+                    </div>                  
+                </div>
+                <div class="inputs-compartidos">
+                    <div>
                         <label for="nombreProducto">Nombre:</label>
                         <input formControlName="nombreProducto" id="nombreProducto" name="nombreProducto" type="text" required>
                     </div>
@@ -31,8 +37,7 @@
                     <div>
                         <label for="precio_unitario">Precio Unitario:</label>
                         <input formControlName="precio_unitario" id="precio_unitario" name="precio_unitario" type="number" required>
-                    </div>
-                    
+                    </div>                   
                 </div>
                 <div class="boton-agregar">
                     <button type="submit" >Agregar</button>

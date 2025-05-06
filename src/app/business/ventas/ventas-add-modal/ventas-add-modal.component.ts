@@ -77,6 +77,7 @@ export class VentasAddModalComponent implements OnInit {
   agregarProductoAVenta(producto: any) {
     const productoVenta = {
       id: producto.id,
+      codigo: producto.codigo,
       nombreProducto: producto.nombreProducto,
       marca: producto.marca,
       precio_unitario: producto.precio_unitario,

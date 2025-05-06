@@ -28,6 +28,7 @@ export class ProductosEditModalComponent implements OnInit {
     this.productoForm = this.fb.group({
       id: [this.producto.id],
       nombreProducto: [this.producto.nombreProducto],
+      codigo: [this.producto.codigo],
       marca: [this.producto.marca],
       cantidad: [this.producto.cantidad],
       precio_unitario: [this.producto.precio_unitario]

@@ -37,9 +37,10 @@
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Código</th>
                         <th>Nombre</th>
                         <th>Marca</th>
-                        <th>Cantidad</th>
+                        <th>Stock</th>
                         <th>Precio Unitario</th>
                         <th>Acción</th>
                     </tr>
@@ -47,6 +48,7 @@
                 <tbody>
                     <tr *ngFor="let producto of productos ">
                         <td>{{producto.id}}</td>
+                        <td>{{producto.codigo}}</td>
                         <td>{{producto.nombreProducto}}</td>
                         <td>{{producto.marca}}</td>
                         <td>{{producto.cantidad}}</td>

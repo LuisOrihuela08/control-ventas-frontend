@@ -24,6 +24,7 @@ export class ProductosAddModalComponent implements OnInit{
   ngOnInit(): void {
     this.productoForm = this.fb.group({
       nombreProducto: ['', Validators.required],
+      codigo: ['', Validators.required],
       marca: ['', Validators.required],
       cantidad: ['', Validators.required],
       precio_unitario: ['', Validators.required]

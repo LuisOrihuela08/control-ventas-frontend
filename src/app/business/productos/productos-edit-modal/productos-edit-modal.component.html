@@ -15,6 +15,12 @@
             <form [formGroup]="productoForm" (ngSubmit)="editarProducto()">
                 <div class="inputs-compartidos">
                     <div>
+                        <label for="codigo">Código:</label>
+                        <input formControlName="codigo" id="codigo" name="codigo" type="text" required>
+                    </div>
+                </div>
+                <div class="inputs-compartidos">
+                    <div>
                         <label for="nombreProducto">Nombre:</label>
                         <input formControlName="nombreProducto" id="nombreProducto" name="nombreProducto" type="text" required>
                     </div>
