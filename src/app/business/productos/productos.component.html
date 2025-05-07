@@ -6,6 +6,11 @@
         <div class="cabecera">
             <div class="acciones">
                 <div class="inputs">
+                    <label for="">Código:</label>
+                    <input type="search" placeholder="Ejm: SDC54" [(ngModel)]="codigoBuscado"
+                        (input)="buscarProductoPorCodigo()">
+                </div>
+                <div class="inputs">
                     <label for="">Marca:</label>
                     <input type="search" placeholder="Ejm: Adidas" [(ngModel)]="marcaBuscada"
                         (input)="buscarProductoPorMarca()">
@@ -36,7 +41,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
+                       <!-- <th>ID</th>-->
                         <th>Código</th>
                         <th>Nombre</th>
                         <th>Marca</th>
@@ -47,7 +52,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let producto of productos ">
-                        <td>{{producto.id}}</td>
+                        <!--<td>{{producto.id}}</td>-->
                         <td>{{producto.codigo}}</td>
                         <td>{{producto.nombreProducto}}</td>
                         <td>{{producto.marca}}</td>
@@ -66,6 +71,9 @@
             </table>
         </div>
 
+        <!-- Mensaje cuando no hay resultados para la busqueda de marca-->
+        <p *ngIf="productos.length === 0 && codigoBuscado.trim() !== ''">No se encontraron resultados
+            para la marca: <strong>{{codigoBuscado}}</strong> </p>
         <!-- Mensaje cuando no hay resultados para la busqueda de marca-->
         <p *ngIf="productos.length === 0 && marcaBuscada.trim() !== ''">No se encontraron resultados
             para la marca: <strong>{{marcaBuscada}}</strong> </p>

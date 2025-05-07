@@ -23,6 +23,7 @@ export class ProductosComponent implements OnInit, OnDestroy {
 
   //Esto es para la busqueda de productos y archivo excel, PDF
   nombreProductoBuscado: string = ''; // Variable para almacenar el nombre buscado
+  codigoBuscado: string = ''; // Variable para almacenar el código buscado
   marcaBuscada: string = ''; // Variable para almacenar la marca buscada
   selectFile: File | null = null; // Variable para almacenar el archivo seleccionado
   mensajeImportExcel: string = ''; // Mensaje para mostrar el resultado de la importación
@@ -155,6 +156,30 @@ export class ProductosComponent implements OnInit, OnDestroy {
         this.productos = [];
         this.totalPages = 0;
       }
+    )
+  }
+
+  //Método par buscar producto por codigo
+  buscarProductoPorCodigo(): void{
+
+    if(!this.codigoBuscado.trim()){
+      this.listarProductosPaginados();
+      return;
+    }
+
+    this.productoService.getProductoByCodigo(this.codigoBuscado).subscribe(
+      (producto: any) => {
+        this.productos = [producto];
+        this.totalPages = 1; // Solo un producto encontrado
+        console.log('Producto encontrado por su código:', this.productos);
+      },
+      (error) => {
+        console.error('Error al buscar el producto por código: ', error);
+        // Si hubo error (ej. 404), asumimos que no hay productos 
+        this.productos = [];
+        this.totalPages = 0;
+      }
+  
     )
   }
 

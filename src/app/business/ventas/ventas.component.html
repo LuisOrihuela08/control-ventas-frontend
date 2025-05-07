@@ -31,7 +31,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <!--<th>ID</th>-->
                         <th>Productos</th>
                         <th>Monto Total</th>
                         <th>Método Pago</th>
@@ -43,10 +43,13 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let venta of ventas">
-                        <td>{{venta.id}}</td>
-                        <span *ngFor="let prod of venta.productos_vendidos; let last = last">
-                            {{ prod.nombreProducto }} ({{prod.cantidad}})<span *ngIf="!last">, </span>
-                        </span>
+                       <!-- <td>{{venta.id}}</td>-->
+                        <td>
+                            <span *ngFor="let prod of venta.productos_vendidos; let last = last">
+                                {{ prod.nombreProducto }} ({{prod.cantidad}})<span *ngIf="!last">, </span>
+                            </span>
+                        </td>
+                        
                         <td>S/. {{venta.monto_total}}</td>
                         <td>{{venta.metodoPago}}</td>
                         <td>S/. {{venta.dinero_cliente}}</td>

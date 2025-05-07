@@ -55,6 +55,11 @@ export class ProductoService {
     return this.http.get('http://localhost:8080/api/producto/find-marca/' + marca, { params });
   }
 
+  //Método para buscar producto por codigo
+  getProductoByCodigo(codigo: string): Observable<any>{
+    return this.http.get('http://localhost:8080/api/producto/find/codigo/' + codigo);
+  }
+
   //Método para descargar el inventario de productos en excel
   downloadExcel(){
     return this.http.get('http://localhost:8080/api/producto/inventario-excel', { responseType: 'blob' });
