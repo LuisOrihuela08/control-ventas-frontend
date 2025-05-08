@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { ModalService } from '../../shared/services/modal.service';
 import { VentasReporteMetodoPagoComponent } from './ventas-reporte-metodo-pago/ventas-reporte-metodo-pago.component';
 import { VentasAddModalComponent } from './ventas-add-modal/ventas-add-modal.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ventas',
@@ -23,6 +24,8 @@ export class VentasComponent implements OnInit{
   metodoPagoBuscado: string = ''; // Variable para almacenar el metodo de pago buscado
   fechaInicio: string = ''; //Esto me va a permitir hacer la busqueda de inventario entre fechas
   fechaFin: string = ''; //Esto me va a permitir hacer la busqueda de inventario entre fechas
+  fechaInicioPDF: string = ''; // Variable para almacenar la fecha de inicio del PDF
+  fechaFinPDF: string = ''; // Variable para almacenar la fecha de fin del PDF
 
   //Esto es para los modales
   isModalReporteVentasMetodoPago: boolean = false;
@@ -180,6 +183,34 @@ export class VentasComponent implements OnInit{
         alert('Error al descargar el PDF de la venta. Por favor, inténtelo de nuevo más tarde.');
       }
       
+    });
+  }
+
+  //Método para generar PDF de ventas entre fechas
+  descargarVentasPDFByFechas(): void {
+
+    if (!this.fechaInicioPDF || !this.fechaFinPDF) {
+      //alert('Por favor, seleccione ambas fechas para generar el PDF.');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Fechas no seleccionadas',
+        text: 'Por favor, seleccione ambas fechas para generar el PDF.',
+        confirmButtonText: 'Aceptar'
+      })
+      return;
+    }
+
+    this.ventaService.generateVentasPDFByFechas(this.fechaInicioPDF, this.fechaFinPDF).subscribe({
+      next: (pdfBlob) => {
+        const fileURL = window.URL.createObjectURL(pdfBlob);
+        window.open(fileURL, '_blank');// Abrir el PDF en una nueva pestaña
+        console.log('Fechas ingresadas: ', this.fechaInicioPDF, this.fechaFinPDF);
+        console.log('PDF de ventas entre fechas generado y descargado con éxito.');
+      },
+      error: (error) => {
+        console.error('Error al descargar el PDF de ventas entre fechas: ', error);
+        alert('Error al descargar el PDF de ventas entre fechas. Por favor, inténtelo de nuevo más tarde.');
+      }
     });
   }
 

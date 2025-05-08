@@ -59,4 +59,11 @@ export class VentaService {
   generateVentaPDF(id: string): Observable<any>{
     return this.http.get('http://localhost:8080/api/venta/export/pdf/' + id, {responseType: 'blob'});
   }
+
+  //Método para generar PDF de ventas entre fechas
+  generateVentasPDFByFechas(fechaInicio: string, fechaFin: string): Observable<any>{
+    const params = new HttpParams().set('fechaInicio', fechaInicio)
+                                   .set('fechaFin', fechaFin);    
+    return this.http.get('http://localhost:8080/api/venta/export/pdf/rango', {params, responseType: 'blob'});
+  }
 }

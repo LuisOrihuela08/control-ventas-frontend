@@ -17,7 +17,12 @@
                     <input type="date" name="fechaInicio" id="fechaInicio" [(ngModel)]="fechaInicio">
                     <input type="date" name="fechaFin" id="fechaFin" [(ngModel)]="fechaFin">
                     <button (click)="buscarVentasPorFechas()">🔍</button>
-                </div>              
+                </div> 
+                <div class="fecha-group">
+                    <input type="date" name="fechaInicio" id="fechaInicio" [(ngModel)]="fechaInicioPDF">
+                    <input type="date" name="fechaFin" id="fechaFin" [(ngModel)]="fechaFinPDF">
+                    <button (click)="descargarVentasPDFByFechas()"><i class="fa-solid fa-file-pdf"></i> Generar PDF</button>
+                </div>             
                 <button (click)="mostrarModalReporteVentasMetodoPago()"><i class="fa-solid fa-wallet"></i> Reporte Método Pago</button>
                <!--<button ><i class="fa-solid fa-file-pdf"></i> Generar PDF</button>-->
                 <button (click)="limpiarFiltros()"><i class="fa-solid fa-broom"></i> Limpiar filtros</button>
