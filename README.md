@@ -1,27 +1,43 @@
-# ControlVentasFrontend
+# Sistema de Control de Ventas (Frontend)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.11.
+## Descripción
+Este repositorio contiene el frontend para el sistema de control-ventas para cualquier tipo de negocio. Esta desarrollado con Angular 18
 
-## Development server
+## Principales Funcionalidades
+- **Registro de Ventas**
+- **Registro de Productos(Código, Nombre, Marca, Precio Unitario, Stock)**
+- **Listado de las ventas (incluido por paginación)**
+- **Listado de los productos (incluido por paginación)**
+- **Generación de nota de venta en PDF por cada venta**
+- **Filtro para buscar ventas por nombre de producto**
+- **Filtro para buscar venta por un rango de fechas**
+- **Filtro para buscar ventas por método de pago**
+- **Reporte de ventas por método de pago**
+- **Filtro para buscar producto por código**
+- **Filtro para buscar productos por marca**
+- **Filtro para buscar producto por el nombre**
+- **Envia de mensaje WhatsApp por cada venta registrada**
+- **Control de stock de Productos automático por cada venta**
+- **Cálculo automatizado sobre el monto total, dinero del cliente y vuelto**
+- **Reporte del inventario de Productos en Excel y PDF**
+- **Importe de Excel de productos al sistema**
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Tecnologias usadas
+- **MongoDB Atlas**
+- **Java 17**
+- **Spring Boot**
+- **WhatsApp API Business - Meta Developers**
+- **OpenPDF**
+- **Swagger (para la documentación)**
+- **JUnit5**
+- **Mockito**
+- **Apache POI**
 
-## Code scaffolding
+## Frontend para la API
+   ```bash
+   https://github.com/LuisOrihuela08/control-ventas-backend.git
+   ```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 👨‍💻 Autor
+Luis Orihuela Orozco | 
+Backend Developer - 2025
