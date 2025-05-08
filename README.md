@@ -23,15 +23,9 @@ Este repositorio contiene el frontend para el sistema de control-ventas para cua
 - **Importe de Excel de productos al sistema**
 
 ## Tecnologias usadas
-- **MongoDB Atlas**
-- **Java 17**
-- **Spring Boot**
-- **WhatsApp API Business - Meta Developers**
-- **OpenPDF**
-- **Swagger (para la documentación)**
-- **JUnit5**
-- **Mockito**
-- **Apache POI**
+- **Angular 18**
+- **Sweet Alert 2**
+- **Font Amazing**
 
 ## Backend para el proyecto:
    ```bash
