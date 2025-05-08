@@ -66,4 +66,9 @@ export class VentaService {
                                    .set('fechaFin', fechaFin);    
     return this.http.get('http://localhost:8080/api/venta/export/pdf/rango', {params, responseType: 'blob'});
   }
+
+  //Método para listar los metodos de pago
+  listMetodosPago(): Observable<any>{
+    return this.http.get('http://localhost:8080/api/venta/metodos-pago');
+  }
 }

@@ -18,11 +18,7 @@
                     <input type="date" name="fechaFin" id="fechaFin" [(ngModel)]="fechaFin">
                     <button (click)="buscarVentasPorFechas()">🔍</button>
                 </div> 
-                <div class="fecha-group">
-                    <input type="date" name="fechaInicio" id="fechaInicio" [(ngModel)]="fechaInicioPDF">
-                    <input type="date" name="fechaFin" id="fechaFin" [(ngModel)]="fechaFinPDF">
-                    <button (click)="descargarVentasPDFByFechas()"><i class="fa-solid fa-file-pdf"></i> Generar PDF</button>
-                </div>             
+                            
                 <button (click)="mostrarModalReporteVentasMetodoPago()"><i class="fa-solid fa-wallet"></i> Reporte Método Pago</button>
                <!--<button ><i class="fa-solid fa-file-pdf"></i> Generar PDF</button>-->
                 <button (click)="limpiarFiltros()"><i class="fa-solid fa-broom"></i> Limpiar filtros</button>
@@ -30,8 +26,17 @@
             <div class="agregar">
                 <button (click)="mostrarModalAgregarVenta()"><i class="fa-solid fa-plus"></i> Agregar Venta</button>
             </div>
-
         </div>
+        <div class="cabecera">
+            <div class="acciones">
+                <div class="fecha-group">
+                    <input type="date" name="fechaInicio" id="fechaInicio" [(ngModel)]="fechaInicioPDF">
+                    <input type="date" name="fechaFin" id="fechaFin" [(ngModel)]="fechaFinPDF">
+                    <button (click)="descargarVentasPDFByFechas()"><i class="fa-solid fa-file-pdf"></i> Generar Reporte Ventas</button>
+                </div> 
+            </div>
+        </div>
+
         <div class="tabla-content">
             <table>
                 <thead>
@@ -73,6 +78,9 @@
         <!-- Mensaje cuando no hay resultados para la busqueda del nombre de producto-->
         <p *ngIf="ventas.length === 0 && nombreProductoBuscado.trim() !== ''">No se encontraron resultados
             para la marca: <strong>{{nombreProductoBuscado}}</strong> </p>
+        <!-- Mensaje cuando no hay resultados para la busqueda de metodo de pago-->
+        <p *ngIf="ventas.length === 0 && metodoPagoBuscado.trim() !== ''">No se encontraron resultados
+            para el método de pago: <strong>{{metodoPagoBuscado}}</strong> </p>
         <!-- Mensaje cuando no hay resultados para la busqueda entre fechas-->
         <p class="p-not-content" *ngIf="ventas.length === 0 && fechaInicio && fechaFin">No se encontraron resultados
         entre las fechas {{fechaInicio}} y {{fechaFin}}</p>

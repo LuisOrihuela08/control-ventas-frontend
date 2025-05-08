@@ -89,9 +89,19 @@
         <div class="modal-inputs">
             <form [formGroup]="ventaForm" (ngSubmit)="registrarVenta()">
                 <div class="inputs-compartidos">
+                    <!--
                     <div>
                         <label for="metodoPago">Método de Pago:</label>
                         <input formControlName="metodoPago" id="metodoPago" name="metodoPago" type="text" required>
+                    </div>
+                    -->
+                    <!--Lo reemplace por este combo, para que solo se escoja y no se escriba, para evitar errores de tipografia-->
+                    <div>
+                        <label for="metodoPago">Método de Pago:</label>
+                        <select formControlName="metodoPago" id="metodoPago" name="metodoPago" required>
+                            <option value="">Seleccione una opción</option>
+                            <option *ngFor="let metodo of metodosPago" [value]="metodo">{{ metodo }}</option>
+                          </select>
                     </div>
                     <div>
                         <label for="dinero_cliente">Dinero Cliente:</label>

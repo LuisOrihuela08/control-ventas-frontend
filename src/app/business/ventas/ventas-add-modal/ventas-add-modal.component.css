@@ -238,7 +238,13 @@
     font-family: 'Quicksand';
     font-size: 14px;
 }
-
+.contenedor .modal-content .modal-inputs .inputs-compartidos div select{
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    font-size: 14px;
+}
 .contenedor .modal-content .modal-inputs .inputs-compartidos div input {
     width: 100%;
     padding: 8px;

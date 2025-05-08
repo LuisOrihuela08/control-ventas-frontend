@@ -21,6 +21,8 @@ export class VentasAddModalComponent implements OnInit {
   productosVenta: Producto[] = []; // Array para almacenar los productos seleccionados para la venta
   ventaForm!: FormGroup;
 
+  metodosPago: string[] = []; // Esto es para almacenar los metodos de pago
+
   nombreProductoBuscado: string = '';
 
   constructor(private modalService: ModalService,
@@ -37,6 +39,11 @@ export class VentasAddModalComponent implements OnInit {
       vuelto: [0] // Inicializa el campo de vuelto como 0
 
     });
+
+    //Esto es para listar los metodos de pago al inciar el componente
+    this.listarMetodosPago();
+    
+    //Esto es para escuchar los cambios en el formulario y mostrar los valores actuales
     console.log(this.ventaForm.value);
     this.ventaForm.valueChanges.subscribe((value) => {
       console.log('Valores actuales del formulario: ', value);
@@ -167,4 +174,17 @@ export class VentasAddModalComponent implements OnInit {
     );
   }
 
+  //Método para listar los metodos de pago
+  listarMetodosPago(): void {
+    this.ventaService.listMetodosPago().subscribe(
+      (data: string[]) => {
+        this.metodosPago = data; // Asignar la respuesta a la variable metodosPago
+        console.log('Métodos de pago listados: ', this.metodosPago);
+      },
+      (error) => {
+        console.error('Error al listar los métodos de pago: ', error);
+      }
+    )
+
+  }
 }

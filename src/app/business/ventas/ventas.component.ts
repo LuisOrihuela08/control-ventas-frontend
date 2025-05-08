@@ -18,6 +18,7 @@ import Swal from 'sweetalert2';
 export class VentasComponent implements OnInit{
 
   ventas: Venta[] = [];
+  
 
   //Esto es para la busqueda de ventas
   nombreProductoBuscado: string = ''; // Variable para almacenar el nombre buscado 
@@ -116,6 +117,12 @@ export class VentasComponent implements OnInit{
 
     if (!this.fechaInicio || !this.fechaFin) {
       this.listarVentasPaginadas();
+      Swal.fire({
+        icon: 'warning',
+        title: 'Fechas no seleccionadas',
+        text: 'Por favor, seleccione ambas fechas para realizar la búsqueda.',
+        confirmButtonText: 'Aceptar'
+      })
       return;
     }
 
@@ -214,4 +221,5 @@ export class VentasComponent implements OnInit{
     });
   }
 
+  
 }
