@@ -33,7 +33,7 @@ Este repositorio contiene el frontend para el sistema de control-ventas para cua
 - **Mockito**
 - **Apache POI**
 
-## Frontend para la API
+## Backend para el proyecto:
    ```bash
    https://github.com/LuisOrihuela08/control-ventas-backend.git
    ```
