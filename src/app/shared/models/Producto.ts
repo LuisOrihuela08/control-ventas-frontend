@@ -5,5 +5,6 @@ export class Producto{
     marca: string = '';
     cantidad: number = 0;
     precio_unitario: number = 0;
+    descripcion: string = '';
     
 }

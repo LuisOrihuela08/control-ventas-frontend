@@ -74,12 +74,14 @@
     display: flex;
     gap: 10px;
     width: 100%;
+    
 }
 
 .contenedor .modal-content .modal-inputs .inputs-compartidos div {
     display: flex;
     flex-direction: column;
     flex: 1;
+    margin-top: 5px;
     /* Para que ambos divs compartan el espacio equitativamente */
 }
 
@@ -96,6 +98,17 @@
     border: 1px solid #007bff;
     border-radius: 5px;
     font-size: 14px;
+    font-family: 'Quicksand';
+}
+
+.contenedor .modal-content .modal-inputs .inputs-compartidos textarea{
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: 'Quicksand';
+    height: 60px;
 }
 
 /*Boton agregar del modal*/

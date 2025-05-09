@@ -31,7 +31,8 @@ export class ProductosEditModalComponent implements OnInit {
       codigo: [this.producto.codigo],
       marca: [this.producto.marca],
       cantidad: [this.producto.cantidad],
-      precio_unitario: [this.producto.precio_unitario]
+      precio_unitario: [this.producto.precio_unitario],
+      descripcion: [this.producto.descripcion]
     });
     //Aca verifico los valores del producto a editar
     console.log(this.productoForm.value);

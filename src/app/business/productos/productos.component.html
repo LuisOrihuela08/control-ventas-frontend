@@ -47,6 +47,7 @@
                         <th>Marca</th>
                         <th>Stock</th>
                         <th>Precio Unitario</th>
+                        <th>Descripción</th>
                         <th>Acción</th>
                     </tr>
                 </thead>
@@ -58,6 +59,7 @@
                         <td>{{producto.marca}}</td>
                         <td>{{producto.cantidad}}</td>
                         <td>{{producto.precio_unitario}}</td>
+                        <td>{{producto.descripcion}}</td>
                         <td class="button-acciones">
                             <button (click)="eliminarProducto(producto.id)" class="trash">
                                 <i id="trash" class="fa-solid fa-trash"></i>

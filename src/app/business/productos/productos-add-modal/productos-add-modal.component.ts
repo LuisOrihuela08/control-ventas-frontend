@@ -27,7 +27,8 @@ export class ProductosAddModalComponent implements OnInit{
       codigo: ['', Validators.required],
       marca: ['', Validators.required],
       cantidad: ['', Validators.required],
-      precio_unitario: ['', Validators.required]
+      precio_unitario: ['', Validators.required],
+      descripcion: ['', Validators.required]
     });
     /*Esto es para ver lo que se va registrando*/
     console.log(this.productoForm.value);

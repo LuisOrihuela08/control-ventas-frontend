@@ -88,7 +88,8 @@ export class VentasAddModalComponent implements OnInit {
       nombreProducto: producto.nombreProducto,
       marca: producto.marca,
       precio_unitario: producto.precio_unitario,
-      cantidad: 1 // Puedes establecer la cantidad inicial aquí
+      cantidad: 1, // Puedes establecer la cantidad inicial aquí
+      descripcion: producto.descripcion
     };
     this.productosVenta.push(productoVenta);
   }

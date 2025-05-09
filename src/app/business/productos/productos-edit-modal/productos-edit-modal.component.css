@@ -96,8 +96,17 @@
     border: 1px solid #007bff;
     border-radius: 5px;
     font-size: 14px;
+    font-family: 'Quicksand';
 }
-
+.contenedor .modal-content .modal-inputs .inputs-compartidos textarea{
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: 'Quicksand';
+    height: 60px;
+}
 /*Boton agregar del modal*/
 .contenedor .modal-content .modal-inputs .boton-agregar {
     margin-top: 10px;
