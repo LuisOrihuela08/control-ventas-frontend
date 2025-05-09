@@ -62,4 +62,4 @@ Este repositorio contiene el frontend para el sistema de control-ventas para cua
 
 ## 👨‍💻 Autor
 Luis Orihuela Orozco | 
-Backend Developer - 2025
+FullStack Developer - 2025
