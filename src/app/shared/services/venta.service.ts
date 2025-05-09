@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Venta } from '../models/Venta';
 
 @Injectable({
@@ -8,7 +8,16 @@ import { Venta } from '../models/Venta';
 })
 export class VentaService {
 
+  //Esto es para actualizar la interfaz de lista de ventas
+  private ventasUpdateSource = new BehaviorSubject<void>(undefined);
+  ventasUpdate$ = this.ventasUpdateSource.asObservable();
+
   constructor(private http: HttpClient) { }
+
+  //Método para actualizar la interfaz de lista de ventas
+  notificarVentasUpdate(){
+    this.ventasUpdateSource.next();
+  }
 
   //Método para listar las ventas paginadas
   listVentasPaginadas(page: number, size: number){

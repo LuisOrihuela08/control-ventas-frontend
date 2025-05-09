@@ -42,7 +42,7 @@ export class VentasAddModalComponent implements OnInit {
 
     //Esto es para listar los metodos de pago al inciar el componente
     this.listarMetodosPago();
-    
+
     //Esto es para escuchar los cambios en el formulario y mostrar los valores actuales
     console.log(this.ventaForm.value);
     this.ventaForm.valueChanges.subscribe((value) => {
@@ -125,8 +125,8 @@ export class VentasAddModalComponent implements OnInit {
     const vuelto = dineroCliente - total;
     return vuelto >= 0 ? vuelto : 0;
   }
-  
-  
+
+
 
   //Método para registrar una venta
   registrarVenta(): void {
@@ -141,18 +141,31 @@ export class VentasAddModalComponent implements OnInit {
       return;
     }
 
-    const metodoPago = this.ventaForm.value.metodoPago;
-    const dineroCliente = this.ventaForm.value.dinero_cliente;
+    // Actualizar el formulario con los productos vendidos
+    this.ventaForm.patchValue({
+      productos_vendidos: this.productosVenta
+    });
 
-    // Asignar los valores al modelo
-    this.ventas.metodoPago = metodoPago;
-    this.ventas.dinero_cliente = dineroCliente;
-    this.ventas.productos_vendidos = this.productosVenta; // Asignar los productos a la venta
+    // Puedes verificar los valores antes de enviarlos
+    console.log('Valores actuales del formulario:', this.ventaForm.value);
+
+    // Asignar al modelo y enviar
+    this.ventas = this.ventaForm.value;
+
+    // Asignar valores del formulario
+    this.ventas = this.ventaForm.value;
+
+    // Agregar campos calculados
+    this.ventas.monto_total = this.calcularTotal();
+    this.ventas.vuelto = this.calcularVuelto();
+
+    console.log('Venta a registrar:', this.ventas);
 
     this.ventaService.createVenta(this.ventas).subscribe(
       (response) => {
         Swal.fire('Éxito', 'La venta ha sido registrada exitosamente.', 'success');
         console.log('Venta registrada:', response);
+        console.log('Productos vendidos:', this.productosVenta);
         // Generar el PDF de la venta registrada
         this.ventaService.generateVentaPDF(response.id).subscribe({
           next: (pdfBlob) => {
@@ -165,8 +178,11 @@ export class VentasAddModalComponent implements OnInit {
             alert('Error al descargar el PDF de la venta. Por favor, inténtelo de nuevo más tarde.');
           }
         });
+        
         this.productosVenta = []; // Limpiar la lista de productos después de registrar la venta
         this.ventaForm.reset(); // Limpia el formulario
+        this.limpiarFiltros(); // Limpiar los filtros de búsqueda
+        this.ventaService.notificarVentasUpdate(); // Notificar a otros componentes sobre la actualización de ventas
       },
       (error) => {
         console.error('Error al registrar la venta:', error);

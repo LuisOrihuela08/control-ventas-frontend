@@ -7,6 +7,7 @@ import { ModalService } from '../../shared/services/modal.service';
 import { VentasReporteMetodoPagoComponent } from './ventas-reporte-metodo-pago/ventas-reporte-metodo-pago.component';
 import { VentasAddModalComponent } from './ventas-add-modal/ventas-add-modal.component';
 import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-ventas',
@@ -15,10 +16,10 @@ import Swal from 'sweetalert2';
   templateUrl: './ventas.component.html',
   styleUrl: './ventas.component.css'
 })
-export class VentasComponent implements OnInit{
+export class VentasComponent implements OnInit {
 
   ventas: Venta[] = [];
-  
+
 
   //Esto es para la busqueda de ventas
   nombreProductoBuscado: string = ''; // Variable para almacenar el nombre buscado 
@@ -36,24 +37,41 @@ export class VentasComponent implements OnInit{
   pageSize: number = 14; // Número de elementos por página
   totalPages: number = 1; // Se actualizará según la respuesta del backend
 
+  //Esto es para actualizar las ventas luego de un registro
+  private ventasSubscribe: Subscription = undefined!;
+
   constructor(private ventaService: VentaService,
-              private modalService: ModalService
-             ){}
+    private modalService: ModalService
+  ) { }
+
+  ngOnDestroy(): void {
+    //Aca me aseguro de cerrar la subscripcion al servicio
+    if(this.ventasSubscribe){
+      this.ventasSubscribe.unsubscribe();
+      ;
+    }
+  }
 
   ngOnInit(): void {
     this.listarVentasPaginadas();
-    this.modalService.$modalReporteVentasMetodoPago.subscribe((valor) => {this.isModalReporteVentasMetodoPago = valor})
-    this.modalService.$modalAgregarVenta.subscribe((valor) => {this.isModalAgregarVenta = valor})
+    this.modalService.$modalReporteVentasMetodoPago.subscribe((valor) => { this.isModalReporteVentasMetodoPago = valor })
+    this.modalService.$modalAgregarVenta.subscribe((valor) => { this.isModalAgregarVenta = valor })
+    this.ventasSubscribe = this.ventaService.ventasUpdate$.subscribe(
+      () => {
+        this.listarVentasPaginadas();
+        console.log('Ventas actualizadas desde el servicio');
+      }
+    )
   }
 
   //Esto es para abrir el modal de reporte de ventas por metodo  de pago
-  mostrarModalReporteVentasMetodoPago(){
+  mostrarModalReporteVentasMetodoPago() {
     this.modalService.$modalReporteVentasMetodoPago.emit(true);
     console.log('Modal de reporte de ventas por metodo de pago abierto');
   }
 
   //Método para abrir el modal de agregar venta
-  mostrarModalAgregarVenta(){
+  mostrarModalAgregarVenta() {
     this.modalService.$modalAgregarVenta.emit(true);
     console.log('Modal de agregar venta abierto', this.isModalAgregarVenta);
   }
@@ -92,7 +110,7 @@ export class VentasComponent implements OnInit{
   //Método para buscar venta por nombre del Producto
   buscarVentaPorNombreProducto(): void {
 
-    if(!this.nombreProductoBuscado.trim()){
+    if (!this.nombreProductoBuscado.trim()) {
       this.listarVentasPaginadas();
       return;
     }
@@ -142,7 +160,7 @@ export class VentasComponent implements OnInit{
 
   //Método para filtrar ventas por metodo de pago
   buscarVentasPorMetodoPago(): void {
-    
+
     if (!this.metodoPagoBuscado.trim()) {
       this.listarVentasPaginadas();
       return;
@@ -163,7 +181,7 @@ export class VentasComponent implements OnInit{
   }
 
   //Método para limpiar los filtros de búsqueda
-  limpiarFiltros(): void{
+  limpiarFiltros(): void {
     this.fechaInicio = ''; // Reiniciar el campo de fecha de inicio
     this.fechaFin = ''; // Reiniciar el campo de fecha de fin
     this.nombreProductoBuscado = ''; // Reiniciar el campo de nombre del producto
@@ -177,7 +195,7 @@ export class VentasComponent implements OnInit{
   }
 
   //Método para generar el PDF de una venta
-  descargarVentaPDF(id: string): void{
+  descargarVentaPDF(id: string): void {
 
     this.ventaService.generateVentaPDF(id).subscribe({
       next: (pdfBlob) => {
@@ -189,7 +207,7 @@ export class VentasComponent implements OnInit{
         console.error('Error al descargar el PDF de la venta: ', error);
         alert('Error al descargar el PDF de la venta. Por favor, inténtelo de nuevo más tarde.');
       }
-      
+
     });
   }
 
@@ -221,5 +239,5 @@ export class VentasComponent implements OnInit{
     });
   }
 
-  
+
 }
